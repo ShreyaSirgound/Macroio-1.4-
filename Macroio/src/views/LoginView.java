@@ -4,7 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -69,10 +71,22 @@ public class LoginView {
         passwordDesc.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         loginPanel.add(passwordDesc);
 
-        password = new JPasswordField(21);
+        password = new JPasswordField(19);
         password.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
-        password.setEchoChar('*');
+        JCheckBox hidePasswordCheckbox = new JCheckBox(); //checkbox for password visibility
+        hidePasswordCheckbox.setBackground(Color.white);
+        hidePasswordCheckbox.setPreferredSize(new Dimension(20,35));
+        hidePasswordCheckbox.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    password.setEchoChar((char) 0);
+                } else {
+                     password.setEchoChar('•');
+                }
+            }
+        });
         loginPanel.add(password);
+        loginPanel.add(hidePasswordCheckbox);
 
         JPanel filler3 = new JPanel();
         filler3.setPreferredSize(new Dimension(350, 10));
